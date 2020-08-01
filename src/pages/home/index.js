@@ -15,7 +15,6 @@ function home() {
         url={dadosIniciais.categorias[0].videos[0].url}
         videoDescription="O que é Front-end? Trabalhando na área"
       />
-
       {
         dadosIniciais.categorias.map((categoria, index) => (
           <Carousel
@@ -24,9 +23,7 @@ function home() {
           />
         ))
       }
-
       <Footer />
-
     </div>
   );
 }
