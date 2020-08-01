@@ -4,33 +4,27 @@ import { Link } from 'react-router-dom';
 import PageDefault from '../../../componentes/PageDefault';
 import FormField from '../../../componentes/FormField';
 import Button from '../../../componentes/Button';
+import useForm from '../../../hooks/useForms';
 
 function CadastroCategoria() {
   const valoresIniciais = {
     nome: '',
-    descrição: '',
+    descricao: '',
     cor: '',
   };
+
+  const { handleChange, values, clearForm } = useForm(valoresIniciais);
+
   const [categorias, setCategorias] = useState([]);
-  const [values, setValues] = useState(valoresIniciais);
 
-  function setValue(chave, valor) {
-    setValues({
-      ...values,
-      [chave]: valor,
-    });
-  }
-
-  function handlechange(infosDoEvento) {
-    setValue(
-      infosDoEvento.target.getAttribute('name'),
-      infosDoEvento.target.value,
-    );
-  }
   useEffect(() => {
-    const URL_BD = 'http://localhost:8080/categorias';
-    fetch(URL_BD)
+    const URL_TOP = window.location.hostname.includes('localhost')
+      ? 'http://localhost:8080/categorias'
+      : 'https://devsoutinhoflix.herokuapp.com/categorias';
+    // E a ju ama variáveis
+    fetch(URL_TOP)
       .then(async (respostaDoServidor) => {
+        console.log('sadasdasdasd');
         const resposta = await respostaDoServidor.json();
         setCategorias([
           ...resposta,
@@ -39,7 +33,6 @@ function CadastroCategoria() {
   }, []);
 
   return (
-
     <PageDefault>
       <h1>
         Cadastro de Categoria:
@@ -53,25 +46,23 @@ function CadastroCategoria() {
           values,
         ]);
 
-        setValues(valoresIniciais);
+        clearForm();
       }}
       >
-        {useState}
 
         <FormField
           label="Nome da Categoria"
-          type="text"
           name="nome"
           value={values.nome}
-          onChange={handlechange}
+          onChange={handleChange}
         />
 
         <FormField
           label="Descrição"
           type="textarea"
-          name="descrição"
-          value={values.descrição}
-          onChange={handlechange}
+          name="descricao"
+          value={values.descricao}
+          onChange={handleChange}
         />
 
         <FormField
@@ -79,26 +70,29 @@ function CadastroCategoria() {
           type="color"
           name="cor"
           value={values.cor}
-          onChange={handlechange}
+          onChange={handleChange}
         />
 
         <Button>
           Cadastrar
         </Button>
       </form>
+
       {categorias.length === 0 && (
-      <div>
-        Loading...
-      </div>
+        <div>
+          {/* Cargando... */}
+          Loading...
+        </div>
       )}
 
       <ul>
         {categorias.map((categoria) => (
-          <li key={`${categoria.nome}`}>
-            {categoria.nome}
+          <li key={`${categoria.titulo}`}>
+            {categoria.titulo}
           </li>
         ))}
       </ul>
+
       <Link to="/">
         Ir para home
       </Link>

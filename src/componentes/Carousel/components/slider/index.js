@@ -1,4 +1,6 @@
-/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
+/* eslint-disable linebreak-style */
+
 import React from 'react';
 import SlickSlider from 'react-slick';
 import styled from 'styled-components';
