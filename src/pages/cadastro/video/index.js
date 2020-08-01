@@ -32,8 +32,6 @@ function CadastroVideo() {
 
       <form onSubmit={(event) => {
         event.preventDefault();
-        // alert('Video Cadastrado com sucesso!!!1!');
-        console.log('asdasdasd');
         const categoriaEscolhida = categorias.find(
           (categoria) => categoria.titulo === values.categoria,
         );
@@ -44,7 +42,6 @@ function CadastroVideo() {
           categoriaId: categoriaEscolhida.id,
         })
           .then(() => {
-            console.log('Cadastrou com sucesso!');
             history.push('/');
           });
       }}
